@@ -45,10 +45,7 @@ class ExtendedNavBar extends BaseNavBar
      */
     public string $dropdownClass = 'yii\bootstrap5\Dropdown';
 
-    /**
-     * @var array HTML options for collapsible content
-     */
-    public array $collapseOptions = ['id' => 'navbarCollapse'];
+
 
     /**
      * @var string Position of external items
