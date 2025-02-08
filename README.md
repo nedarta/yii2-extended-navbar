@@ -26,34 +26,31 @@ use nedarta\navbar\ExtendedNavBar;
 use yii\helpers\Html;
 
 echo ExtendedNavBar::widget([
-    'brandLabel' => 'My Application',
+    'brandLabel' => 'My Company',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
-        'class' => 'navbar navbar-expand-lg navbar-dark bg-dark',
+        'class' => 'navbar-expand-lg navbar-light bg-light',
     ],
-    'externalItems' => [
-        ['label' => 'Login', 'url' => ['/site/login']],
-        ['label' => 'Register', 'url' => ['/site/register']],
-    ],
+    'externalItems' => Nav::widget([
+        'options' => ['class' => 'navbar-nav ms-auto d-flex flex-row gap-2 me-3'], //configure as needed
+        'items' => [
+            ['label' => 'EN', 'url' => ['/site/language', 'lang' => 'en']],
+            ['label' => 'LV', 'url' => ['/site/language', 'lang' => 'lv']],
+        ],
+    ]),
+]); ?>
+
+<?= Nav::widget([
+    'options' => ['class' => 'navbar-nav ms-auto'],
     'items' => [
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'Contact', 'url' => ['/site/contact']],
     ],
 ]);
 ```
 
 ## Configuration Options
-
-### Core Properties
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `externalItems` | array | `[]` | Navigation items displayed outside the collapsible section |
-| `externalItemsPosition` | string | `'left'` | Position of external items (`'left'`, `'right'`, `'beforeToggle'`) |
-| `externalOptions` | array | `['class' => 'navbar-nav me-auto']` | HTML options for external items container |
-| `containerOptions` | array | `['class' => 'container-fluid']` | HTML options for the navbar's inner container |
-| `collapseOptions` | array | `['id' => 'navbarCollapse']` | HTML options for collapsible content section |
-| `dropdownClass` | string | `'yii\bootstrap5\Dropdown'` | Class used for dropdown menus |
 
 ### External Items Structure
 
@@ -79,63 +76,6 @@ Html::tag('li',
     Html::a('<i class="fas fa-user"></i>', ['/profile'], ['class' => 'nav-link']), 
     ['class' => 'nav-item']
 )
-```
-
-## Advanced Examples
-
-### Responsive Navigation with Mixed Content
-
-```php
-echo ExtendedNavBar::widget([
-    'brandLabel' => Html::img('@web/logo.png', ['height' => '30']),
-    'brandUrl' => Yii::$app->homeUrl,
-    'options' => [
-        'class' => 'navbar navbar-expand-lg navbar-light bg-light sticky-top',
-    ],
-    'externalItemsPosition' => 'right',
-    'externalItems' => [
-        Yii::$app->user->isGuest ? (
-            ['label' => 'Login', 'url' => ['/site/login']]
-        ) : [
-            'label' => Yii::$app->user->identity->username,
-            'items' => [
-                ['label' => 'Profile', 'url' => ['/user/profile']],
-                ['label' => 'Logout', 'url' => ['/site/logout']],
-            ],
-        ],
-        [
-            'label' => '<i class="fas fa-bell"></i>',
-            'encode' => false,
-            'url' => ['/notifications'],
-            'linkOptions' => ['class' => 'position-relative'],
-        ],
-    ],
-    'items' => [
-        ['label' => 'Dashboard', 'url' => ['/dashboard']],
-        ['label' => 'Projects', 'url' => ['/projects']],
-        ['label' => 'Reports', 'url' => ['/reports']],
-    ],
-]);
-```
-
-### Custom Styling with Bootstrap 5
-
-```php
-echo ExtendedNavBar::widget([
-    'options' => [
-        'class' => 'navbar navbar-expand-lg navbar-dark bg-gradient',
-        'style' => 'background-color: #2c3e50;',
-    ],
-    'containerOptions' => [
-        'class' => 'container-fluid px-4',
-    ],
-    'externalOptions' => [
-        'class' => 'navbar-nav ms-auto mb-2 mb-lg-0',
-    ],
-    'collapseOptions' => [
-        'class' => 'collapse navbar-collapse justify-content-center',
-    ],
-]);
 ```
 
 ## Contributing
