@@ -9,9 +9,10 @@ A Bootstrap 5-compatible NavBar widget for Yii2 that adds support for external n
 
 - Bootstrap 5 compatibility with modern navbar styling
 - External navigation items that remain visible outside the collapsible section
-- Flexible positioning options for external items (left, right, or before toggle)
+- Flexible positioning options for external items (before or after the toggle)
 - Support for dynamic dropdowns in both regular and external items
 - Comprehensive customization options for all navbar elements
+- Optional active route highlighting for external items rendered from arrays
 
 ## Installation
 
@@ -40,6 +41,22 @@ echo ExtendedNavBar::widget([
     ]),
 ]); ?>
 
+## Array-Based External Items (with active highlighting)
+
+```php
+echo ExtendedNavBar::widget([
+    'externalItemsPosition' => 'after',
+    'highlightActiveItems' => true,
+    'externalItemsArray' => [
+        'options' => ['class' => 'navbar-nav ms-auto d-flex flex-row gap-2 me-3'],
+        'items' => [
+            ['label' => 'Profile', 'url' => ['/user/profile']],
+            ['label' => 'Settings', 'url' => ['/user/settings']],
+        ],
+    ],
+]);
+```
+
 <?= Nav::widget([
     'options' => ['class' => 'navbar-nav ms-auto'],
     'items' => [
@@ -51,6 +68,13 @@ echo ExtendedNavBar::widget([
 ```
 
 ## Configuration Options
+
+- `externalItems` (`string`): Raw pre-rendered HTML for items outside the collapse area.
+- `externalItemsArray` (`array`): External items as an array. Can be either:
+  - a plain Yii Nav items list, or
+  - a full `yii\bootstrap5\Nav::widget()` config.
+- `externalItemsPosition` (`string`): `before` (default) or `after` the toggle button.
+- `highlightActiveItems` (`bool`): Enables active route highlighting when using `externalItemsArray`.
 
 ### External Items Structure
 
